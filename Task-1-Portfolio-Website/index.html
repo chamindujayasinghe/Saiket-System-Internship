@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chamindu Jayasinghe — Full Stack Developer</title>
+  <meta name="description" content="Portfolio of Chamindu Jayasinghe, final-year Software Engineering undergraduate and full stack development intern at SaiKet Systems." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS (Play CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#0F0F0D',
+            panel: '#171714',
+            line: '#2A2A25',
+            paper: '#ECE8DD',
+            muted: '#8F8B80',
+            signal: '#FF6B2C',
+            ok: '#7BD88F',
+          },
+          fontFamily: {
+            display: ['"Instrument Serif"', 'Georgia', 'serif'],
+            sans: ['"Inter Tight"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* Subtle grain so the dark background doesn't feel flat */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.04;
+      z-index: 50;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .caret::after {
+      content: '';
+      display: inline-block;
+      width: 0.55em;
+      height: 1.1em;
+      margin-left: 2px;
+      vertical-align: -0.15em;
+      background: #FF6B2C;
+      animation: blink 1s steps(1) infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .caret::after { animation: none; }
+    }
+  </style>
+</head>
+
+<body class="bg-ink text-paper font-sans antialiased selection:bg-signal selection:text-ink">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-signal focus:text-ink focus:px-3 focus:py-2 font-mono text-sm">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="fixed top-0 inset-x-0 z-40 border-b border-line/80 bg-ink/85 backdrop-blur">
+    <nav class="mx-auto max-w-6xl px-5 sm:px-8 h-16 flex items-center justify-between" aria-label="Primary">
+      <a href="#home" class="font-mono text-sm tracking-tight">
+        <span class="text-signal">~/</span>chamindu<span class="text-muted">.dev</span>
+      </a>
+
+      <ul id="nav-menu" class="hidden md:flex items-center gap-8 font-mono text-[13px] text-muted">
+        <li><a href="#about" class="nav-link hover:text-paper transition-colors">01. about</a></li>
+        <li><a href="#projects" class="nav-link hover:text-paper transition-colors">02. projects</a></li>
+        <li><a href="#education" class="nav-link hover:text-paper transition-colors">03. education</a></li>
+        <li><a href="#contact" class="nav-link hover:text-paper transition-colors">04. contact</a></li>
+      </ul>
+
+      <a href="#contact" class="hidden md:inline-flex items-center gap-2 border border-signal text-signal font-mono text-[13px] px-4 py-2 hover:bg-signal hover:text-ink transition-colors">
+        hire_me()
+      </a>
+
+      <button id="menu-toggle" class="md:hidden p-2 -mr-2 text-paper" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+          <path id="menu-icon" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h10" />
+        </svg>
+      </button>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden hidden border-t border-line bg-ink">
+      <ul class="px-5 py-4 space-y-1 font-mono text-sm">
+        <li><a href="#about" class="mobile-link block py-2 text-muted hover:text-paper">01. about</a></li>
+        <li><a href="#projects" class="mobile-link block py-2 text-muted hover:text-paper">02. projects</a></li>
+        <li><a href="#education" class="mobile-link block py-2 text-muted hover:text-paper">03. education</a></li>
+        <li><a href="#contact" class="mobile-link block py-2 text-muted hover:text-paper">04. contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section id="home" class="relative min-h-[100svh] flex items-center pt-16">
+      <div class="mx-auto max-w-6xl w-full px-5 sm:px-8 py-20">
+        <p class="font-mono text-[13px] text-muted mb-8 flex items-center gap-3">
+          <span class="inline-block w-2 h-2 rounded-full bg-ok animate-pulse" aria-hidden="true"></span>
+          Full stack development intern @ SaiKet Systems
+        </p>
+
+        <h1 class="font-display text-[clamp(3rem,9vw,7.5rem)] leading-[0.92] tracking-tight max-w-5xl">
+          I build for the web,<br />
+          <em class="text-signal">front</em> to <em class="text-signal">back.</em>
+        </h1>
+
+        <div class="mt-10 grid md:grid-cols-[1fr_auto] gap-10 items-end">
+          <p class="text-lg text-muted max-w-xl leading-relaxed">
+            Hi, I'm <span class="text-paper">Chamindu Jayasinghe</span>, a final-year Software Engineering
+            undergraduate from Sri Lanka. I build full stack web apps and cross-platform mobile apps with
+            React, Next.js, Node.js, React Native and Flutter.
+          </p>
+
+          <div class="flex flex-wrap gap-3">
+            <a href="#projects" class="inline-flex items-center gap-2 bg-paper text-ink font-medium px-6 py-3 hover:bg-signal transition-colors">
+              View projects
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#contact" class="inline-flex items-center border border-line px-6 py-3 hover:border-paper transition-colors">
+              Get in touch
+            </a>
+          </div>
+        </div>
+
+        <!-- Terminal line -->
+        <div class="mt-16 border-t border-line pt-6 font-mono text-sm text-muted">
+          <span class="text-ok">chamindu@saiket</span>:<span class="text-signal">~</span>$
+          <span id="typed" class="text-paper caret" aria-live="off"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" class="border-t border-line">
+      <div class="mx-auto max-w-6xl px-5 sm:px-8 py-24 md:py-32 grid md:grid-cols-12 gap-12">
+        <div class="md:col-span-4 reveal">
+          <p class="font-mono text-[13px] text-signal mb-3">01 — about</p>
+          <h2 class="font-display text-5xl md:text-6xl leading-none">A little<br /><em>about me</em></h2>
+        </div>
+
+        <div class="md:col-span-8 space-y-10 reveal">
+          <div class="space-y-5 text-lg leading-relaxed text-muted">
+            <p>
+              I'm a final-year <span class="text-paper">BSc (Hons) Software Engineering</span> student at
+              NSBM Green University, affiliated with the University of Plymouth, holding a
+              <span class="text-paper">Second Class Upper Division (2:1)</span> standing and graduating in 2026.
+            </p>
+            <p>
+              I've built AI-enabled finance apps, real-time web platforms, responsive interfaces and mobile
+              games, working with REST APIs, authentication, role-based access control, WebSockets,
+              databases, automated testing and CI/CD. Right now I'm sharpening my full stack skills through the
+              <span class="text-paper">SaiKet Systems Full Stack Development internship</span>.
+            </p>
+            <p>
+              I aim to write clean, maintainable, user-centred software and enjoy working in Agile teams.
+            </p>
+          </div>
+
+          <!-- Quick facts -->
+          <dl class="grid grid-cols-2 sm:grid-cols-4 gap-6 border-y border-line py-6">
+            <div>
+              <dt class="font-mono text-xs text-muted mb-1">based in</dt>
+              <dd class="text-paper">Homagama, Sri Lanka</dd>
+            </div>
+            <div>
+              <dt class="font-mono text-xs text-muted mb-1">degree</dt>
+              <dd class="text-paper">BSc SE · 2:1</dd>
+            </div>
+            <div>
+              <dt class="font-mono text-xs text-muted mb-1">graduating</dt>
+              <dd class="text-paper">2026</dd>
+            </div>
+            <div>
+              <dt class="font-mono text-xs text-muted mb-1">languages</dt>
+              <dd class="text-paper">English · Sinhala</dd>
+            </div>
+          </dl>
+
+          <!-- Stack -->
+          <div>
+            <p class="font-mono text-[13px] text-muted mb-4">// skills</p>
+            <dl class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border-t border-l border-line">
+              <div class="border-r border-b border-line p-5">
+                <dt class="font-mono text-xs text-signal mb-2">languages</dt>
+                <dd class="text-paper">JavaScript · TypeScript · Java · C# · Python · HTML5 · CSS3</dd>
+              </div>
+              <div class="border-r border-b border-line p-5">
+                <dt class="font-mono text-xs text-signal mb-2">full stack web</dt>
+                <dd class="text-paper">React · Next.js · Node.js · Express.js · REST APIs · WebSockets</dd>
+              </div>
+              <div class="border-r border-b border-line p-5">
+                <dt class="font-mono text-xs text-signal mb-2">ui</dt>
+                <dd class="text-paper">Tailwind CSS · Shadcn/ui · Chakra UI · Bootstrap · Figma</dd>
+              </div>
+              <div class="border-r border-b border-line p-5">
+                <dt class="font-mono text-xs text-signal mb-2">mobile</dt>
+                <dd class="text-paper">React Native · Flutter · Flame Engine</dd>
+              </div>
+              <div class="border-r border-b border-line p-5">
+                <dt class="font-mono text-xs text-signal mb-2">data &amp; services</dt>
+                <dd class="text-paper">MySQL · PostgreSQL · MongoDB · Firebase · Supabase</dd>
+              </div>
+              <div class="border-r border-b border-line p-5">
+                <dt class="font-mono text-xs text-signal mb-2">practices</dt>
+                <dd class="text-paper">Git · Zustand · OOP · Auth &amp; RBAC · Testing · CI/CD · Agile</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section id="projects" class="border-t border-line">
+      <div class="mx-auto max-w-6xl px-5 sm:px-8 py-24 md:py-32">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14 reveal">
+          <div>
+            <p class="font-mono text-[13px] text-signal mb-3">02 — projects</p>
+            <h2 class="font-display text-5xl md:text-6xl leading-none">Selected <em>work</em></h2>
+          </div>
+          <p class="text-muted max-w-sm">
+            Full stack web platforms, AI-powered mobile apps and games, plus my ongoing SaiKet Systems internship work.
+          </p>
+        </div>
+
+        <!-- Featured projects -->
+        <p class="font-mono text-[13px] text-muted mb-4 reveal">// featured</p>
+        <ul class="grid md:grid-cols-2 gap-px bg-line border border-line mb-20">
+
+          <li class="project-card group bg-ink p-8 md:p-10 flex flex-col reveal">
+            <div class="flex items-center justify-between font-mono text-xs mb-12">
+              <span class="text-signal">01 / web · full stack</span>
+              <span class="text-muted">MERN</span>
+            </div>
+            <h3 class="font-display text-4xl md:text-5xl mb-4 group-hover:text-signal transition-colors">Event Management System</h3>
+            <p class="text-muted leading-relaxed mb-8">
+              A full stack platform for event planning, task management and team coordination, with secure
+              APIs, role-based access, real-time task updates over WebSockets, and automated testing and delivery.
+            </p>
+            <ul class="mt-auto flex flex-wrap gap-2 font-mono text-xs text-muted">
+              <li class="border border-line px-2 py-1">MongoDB</li>
+              <li class="border border-line px-2 py-1">Express</li>
+              <li class="border border-line px-2 py-1">React</li>
+              <li class="border border-line px-2 py-1">Node.js</li>
+              <li class="border border-line px-2 py-1">WebSockets</li>
+              <li class="border border-line px-2 py-1">RBAC</li>
+              <li class="border border-line px-2 py-1">CI/CD</li>
+            </ul>
+          </li>
+
+          <li class="project-card group bg-ink p-8 md:p-10 flex flex-col reveal">
+            <div class="flex items-center justify-between font-mono text-xs mb-12">
+              <span class="text-signal">02 / mobile · ai</span>
+              <span class="text-muted">React Native</span>
+            </div>
+            <h3 class="font-display text-4xl md:text-5xl mb-4 group-hover:text-signal transition-colors">Smart Spend</h3>
+            <p class="text-muted leading-relaxed mb-8">
+              An AI-powered finance app that reads receipts with AI and OCR to automate expense tracking, with
+              budgeting, categorised records, multilingual recognition and multi-currency support.
+            </p>
+            <ul class="mt-auto flex flex-wrap gap-2 font-mono text-xs text-muted">
+              <li class="border border-line px-2 py-1">React Native</li>
+              <li class="border border-line px-2 py-1">AI</li>
+              <li class="border border-line px-2 py-1">OCR</li>
+              <li class="border border-line px-2 py-1">Multi-currency</li>
+            </ul>
+          </li>
+
+          <li class="project-card group bg-ink p-8 md:p-10 flex flex-col reveal">
+            <div class="flex items-center justify-between font-mono text-xs mb-12">
+              <span class="text-signal">03 / web · full stack</span>
+              <span class="text-muted">Next.js</span>
+            </div>
+            <h3 class="font-display text-4xl md:text-5xl mb-4 group-hover:text-signal transition-colors">Furniture Visualizer</h3>
+            <p class="text-muted leading-relaxed mb-8">
+              A responsive full stack interior design platform with secure authentication, real-time state
+              management, layout configuration and portfolio management.
+            </p>
+            <ul class="mt-auto flex flex-wrap gap-2 font-mono text-xs text-muted">
+              <li class="border border-line px-2 py-1">Next.js</li>
+              <li class="border border-line px-2 py-1">React</li>
+              <li class="border border-line px-2 py-1">Supabase</li>
+              <li class="border border-line px-2 py-1">Zustand</li>
+              <li class="border border-line px-2 py-1">Tailwind</li>
+            </ul>
+          </li>
+
+          <li class="project-card group bg-ink p-8 md:p-10 flex flex-col reveal">
+            <div class="flex items-center justify-between font-mono text-xs mb-12">
+              <span class="text-signal">04 / mobile · game</span>
+              <span class="text-muted">Flutter</span>
+            </div>
+            <h3 class="font-display text-4xl md:text-5xl mb-4 group-hover:text-signal transition-colors">Pixel Game</h3>
+            <p class="text-muted leading-relaxed mb-8">
+              A 2D cross-platform game for Android and iOS with physics-based gameplay, collision detection,
+              level progression, authentication, score tracking and leaderboards.
+            </p>
+            <ul class="mt-auto flex flex-wrap gap-2 font-mono text-xs text-muted">
+              <li class="border border-line px-2 py-1">Flutter</li>
+              <li class="border border-line px-2 py-1">Flame Engine</li>
+              <li class="border border-line px-2 py-1">Firebase</li>
+            </ul>
+          </li>
+
+          <li class="project-card group bg-ink p-8 md:p-10 flex flex-col md:col-span-2 reveal">
+            <div class="flex items-center justify-between font-mono text-xs mb-12">
+              <span class="text-signal">05 / mobile · finance</span>
+              <span class="text-muted">Flutter</span>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6 md:gap-12 items-end flex-1">
+              <div>
+                <h3 class="font-display text-4xl md:text-5xl mb-4 group-hover:text-signal transition-colors">Money Tracker</h3>
+                <p class="text-muted leading-relaxed">
+                  A personal finance app for expense tracking, budgeting and savings goals, with categorisation,
+                  analytics, secure authentication and financial charts.
+                </p>
+              </div>
+              <ul class="flex flex-wrap gap-2 font-mono text-xs text-muted md:justify-end">
+                <li class="border border-line px-2 py-1">Flutter</li>
+                <li class="border border-line px-2 py-1">Authentication</li>
+                <li class="border border-line px-2 py-1">Data Visualization</li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <!-- Internship tasks -->
+        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-4 reveal">
+          <p class="font-mono text-[13px] text-muted">// saiket systems internship</p>
+          <a href="https://github.com/chamindujayasinghe" target="_blank" rel="noopener" class="font-mono text-[13px] text-muted hover:text-signal transition-colors">more on github ↗</a>
+        </div>
+        <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-line border border-line">
+
+          <!-- Project card -->
+          <li class="project-card group bg-ink p-7 flex flex-col reveal">
+            <div class="flex items-center justify-between font-mono text-xs mb-6">
+              <span class="text-muted">task_01</span>
+              <span class="text-ok">● live</span>
+            </div>
+            <h3 class="font-display text-2xl mb-2 group-hover:text-signal transition-colors">Portfolio Website</h3>
+            <p class="text-muted text-[15px] leading-relaxed mb-8">A themed, responsive personal site with a validated contact form. You're looking at it.</p>
+            <p class="mt-auto font-mono text-xs text-muted">html · tailwind · js</p>
+          </li>
+
+          <li class="project-card group bg-ink p-7 flex flex-col reveal">
+            <div class="flex items-center justify-between font-mono text-xs mb-6">
+              <span class="text-muted">task_02</span>
+              <span class="text-muted">○ planned</span>
+            </div>
+            <h3 class="font-display text-2xl mb-2 group-hover:text-signal transition-colors">E-Commerce Landing</h3>
+            <p class="text-muted text-[15px] leading-relaxed mb-8">A responsive storefront landing page with interactive features in vanilla JavaScript.</p>
+            <p class="mt-auto font-mono text-xs text-muted">html · tailwind · js</p>
+          </li>
+
+          <li class="project-card group bg-ink p-7 flex flex-col reveal">
+            <div class="flex items-center justify-between font-mono text-xs mb-6">
+              <span class="text-muted">task_03</span>
+              <span class="text-muted">○ planned</span>
+            </div>
+            <h3 class="font-display text-2xl mb-2 group-hover:text-signal transition-colors">React To-Do App</h3>
+            <p class="text-muted text-[15px] leading-relaxed mb-8">Add, edit and delete tasks: a small app covering React components, state and events.</p>
+            <p class="mt-auto font-mono text-xs text-muted">react · vite · tailwind</p>
+          </li>
+
+          <li class="project-card group bg-ink p-7 flex flex-col reveal">
+            <div class="flex items-center justify-between font-mono text-xs mb-6">
+              <span class="text-muted">task_04</span>
+              <span class="text-muted">○ planned</span>
+            </div>
+            <h3 class="font-display text-2xl mb-2 group-hover:text-signal transition-colors">User REST API</h3>
+            <p class="text-muted text-[15px] leading-relaxed mb-8">CRUD endpoints for a User entity with validation, proper status codes and Postman tests.</p>
+            <p class="mt-auto font-mono text-xs text-muted">node · express · postman</p>
+          </li>
+
+          <li class="project-card group bg-ink p-7 flex flex-col reveal">
+            <div class="flex items-center justify-between font-mono text-xs mb-6">
+              <span class="text-muted">task_05</span>
+              <span class="text-muted">○ planned</span>
+            </div>
+            <h3 class="font-display text-2xl mb-2 group-hover:text-signal transition-colors">Database Integration</h3>
+            <p class="text-muted text-[15px] leading-relaxed mb-8">The User API backed by a SQL database with parameterised queries and persistent storage.</p>
+            <p class="mt-auto font-mono text-xs text-muted">express · sql</p>
+          </li>
+
+          <li class="project-card group bg-ink p-7 flex flex-col reveal">
+            <div class="flex items-center justify-between font-mono text-xs mb-6">
+              <span class="text-muted">task_06</span>
+              <span class="text-muted">○ planned</span>
+            </div>
+            <h3 class="font-display text-2xl mb-2 group-hover:text-signal transition-colors">User Management System</h3>
+            <p class="text-muted text-[15px] leading-relaxed mb-8">A full-stack app to create, view, update and delete user profiles, from React UI to database.</p>
+            <p class="mt-auto font-mono text-xs text-muted">react · node · sql</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ EDUCATION ============ -->
+    <section id="education" class="border-t border-line">
+      <div class="mx-auto max-w-6xl px-5 sm:px-8 py-24 md:py-32 grid md:grid-cols-12 gap-12">
+        <div class="md:col-span-4 reveal">
+          <p class="font-mono text-[13px] text-signal mb-3">03 — education</p>
+          <h2 class="font-display text-5xl md:text-6xl leading-none">Learning<br /><em>&amp; certs</em></h2>
+        </div>
+
+        <div class="md:col-span-8 space-y-14">
+          <ol class="border-l border-line reveal">
+            <li class="relative pl-8 pb-10">
+              <span class="absolute -left-[5px] top-2 w-[9px] h-[9px] bg-signal" aria-hidden="true"></span>
+              <p class="font-mono text-xs text-muted mb-1">2023 — 2026</p>
+              <h3 class="text-xl text-paper font-medium">BSc (Hons) Software Engineering</h3>
+              <p class="text-muted">University of Plymouth / NSBM Green University · Second Class Upper Division (2:1)</p>
+            </li>
+            <li class="relative pl-8 pb-10">
+              <span class="absolute -left-[5px] top-2 w-[9px] h-[9px] bg-line" aria-hidden="true"></span>
+              <p class="font-mono text-xs text-muted mb-1">2022 — 2023</p>
+              <h3 class="text-xl text-paper font-medium">Foundation Programme</h3>
+              <p class="text-muted">NSBM Green University</p>
+            </li>
+            <li class="relative pl-8">
+              <span class="absolute -left-[5px] top-2 w-[9px] h-[9px] bg-line" aria-hidden="true"></span>
+              <p class="font-mono text-xs text-muted mb-1">2021</p>
+              <h3 class="text-xl text-paper font-medium">G.C.E. Ordinary Level</h3>
+              <p class="text-muted">Mahinda College, Galle</p>
+            </li>
+          </ol>
+
+          <div class="reveal">
+            <p class="font-mono text-[13px] text-muted mb-4">// certifications</p>
+            <ul class="grid sm:grid-cols-2 gap-px bg-line border border-line">
+              <li class="bg-ink p-6">
+                <p class="font-mono text-xs text-ok mb-3">● in progress</p>
+                <h3 class="text-paper font-medium mb-1">Advanced Certificate Program in Artificial Intelligence</h3>
+                <p class="text-muted text-sm">SLIIT</p>
+              </li>
+              <li class="bg-ink p-6">
+                <p class="font-mono text-xs text-signal mb-3">✓ HackerRank</p>
+                <h3 class="text-paper font-medium mb-1">Skill Certifications</h3>
+                <p class="text-muted text-sm">Software Engineering Intern · JavaScript (Basic, Intermediate) · SQL (Basic, Intermediate, Advanced)</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" class="border-t border-line">
+      <div class="mx-auto max-w-6xl px-5 sm:px-8 py-24 md:py-32 grid md:grid-cols-12 gap-12">
+        <div class="md:col-span-5 reveal">
+          <p class="font-mono text-[13px] text-signal mb-3">04 — contact</p>
+          <h2 class="font-display text-5xl md:text-6xl leading-none mb-6">Let's build<br /><em>something.</em></h2>
+          <p class="text-muted leading-relaxed mb-10 max-w-sm">
+            Have a project, an opportunity, or just a question? Send a message and I'll get back to you.
+          </p>
+
+          <ul class="space-y-3 font-mono text-sm">
+            <li><a href="mailto:chamindujaya@gmail.com" class="text-paper hover:text-signal transition-colors">chamindujaya@gmail.com</a></li>
+            <li class="text-muted">Homagama, Sri Lanka</li>
+            <li class="pt-3"><a href="https://github.com/chamindujayasinghe" target="_blank" rel="noopener" class="text-muted hover:text-signal transition-colors">↗ github</a></li>
+            <li><a href="https://www.linkedin.com/in/chamindu-jayasinghe-0808b52a0" target="_blank" rel="noopener" class="text-muted hover:text-signal transition-colors">↗ linkedin</a></li>
+          </ul>
+        </div>
+
+        <form id="contact-form" class="md:col-span-7 space-y-6 reveal" novalidate>
+          <!-- Honeypot: hidden from people, bots fill it in and get filtered out -->
+          <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <label for="name" class="block font-mono text-xs text-muted mb-2">name *</label>
+              <input id="name" name="name" type="text" autocomplete="name"
+                class="field w-full bg-panel border border-line px-4 py-3 text-paper placeholder:text-muted/60 focus:outline-none focus:border-signal transition-colors"
+                placeholder="Jane Doe" aria-describedby="name-error" />
+              <p id="name-error" class="error mt-2 font-mono text-xs text-signal hidden"></p>
+            </div>
+            <div>
+              <label for="email" class="block font-mono text-xs text-muted mb-2">email *</label>
+              <input id="email" name="email" type="email" autocomplete="email"
+                class="field w-full bg-panel border border-line px-4 py-3 text-paper placeholder:text-muted/60 focus:outline-none focus:border-signal transition-colors"
+                placeholder="jane@example.com" aria-describedby="email-error" />
+              <p id="email-error" class="error mt-2 font-mono text-xs text-signal hidden"></p>
+            </div>
+          </div>
+
+          <div>
+            <label for="subject" class="block font-mono text-xs text-muted mb-2">subject *</label>
+            <select id="subject" name="subject"
+              class="field w-full bg-panel border border-line px-4 py-3 text-paper focus:outline-none focus:border-signal transition-colors"
+              aria-describedby="subject-error">
+              <option value="">Select a topic…</option>
+              <option value="project">Project inquiry</option>
+              <option value="job">Job / internship opportunity</option>
+              <option value="collab">Collaboration</option>
+              <option value="other">Something else</option>
+            </select>
+            <p id="subject-error" class="error mt-2 font-mono text-xs text-signal hidden"></p>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-baseline mb-2">
+              <label for="message" class="font-mono text-xs text-muted">message *</label>
+              <span id="char-count" class="font-mono text-xs text-muted" aria-live="polite">0 / 500</span>
+            </div>
+            <textarea id="message" name="message" rows="6" maxlength="500"
+              class="field w-full bg-panel border border-line px-4 py-3 text-paper placeholder:text-muted/60 focus:outline-none focus:border-signal transition-colors resize-y"
+              placeholder="Tell me a bit about what you have in mind…" aria-describedby="message-error"></textarea>
+            <p id="message-error" class="error mt-2 font-mono text-xs text-signal hidden"></p>
+          </div>
+
+          <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+            <button id="submit-btn" type="submit"
+              class="inline-flex justify-center items-center gap-2 bg-signal text-ink font-medium px-8 py-3 hover:bg-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+              Send message
+            </button>
+            <p class="font-mono text-xs text-muted">* required</p>
+          </div>
+
+          <div id="form-success" class="hidden border border-ok/40 bg-ok/5 p-4 font-mono text-sm text-ok" role="status" tabindex="-1"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="border-t border-line">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 py-8 flex flex-col sm:flex-row justify-between gap-3 font-mono text-xs text-muted">
+      <p>© <span id="year"></span> Chamindu Jayasinghe. Built with HTML, Tailwind CSS &amp; JavaScript.</p>
+      <p>SaiKet Systems Internship · Task 01</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

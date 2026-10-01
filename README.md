@@ -6,7 +6,7 @@ My work for the SaiKet Systems Full Stack Development internship: six tasks that
 
 | # | Task | Folder | Status |
 |---|---|---|---|
-| 1 | Static Portfolio Website | [Task-1-Portfolio-Website](Task-1-Portfolio-Website/) | ⬜ |
+| 1 | Static Portfolio Website | [Task-1-Portfolio-Website](Task-1-Portfolio-Website/) | ✅ |
 | 2 | Responsive E-Commerce Landing Page | [Task-2-Responsive-Landing-Page](Task-2-Responsive-Landing-Page/) | ⬜ |
 | 3 | React To-Do App | [Task-3-Todo-App](Task-3-Todo-App/) | ⬜ |
 | 4 | REST API (Node.js + Express) | [Task-4-REST-API](Task-4-REST-API/) | ⬜ |

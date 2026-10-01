@@ -227,7 +227,7 @@ CREATE TABLE users (
 
 | Milestone | Target | Status |
 |---|---|---|
-| M1 — Task 1 complete | Oct 4 | ⬜ Not started |
+| M1 — Task 1 complete | Oct 4 | ✅ Done (Oct 2) |
 | M2 — Task 2 complete | Oct 7 | ⬜ Not started |
 | M3 — Task 3 complete | Oct 14 | ⬜ Not started |
 | M4 — Task 4 complete | Oct 21 | ⬜ Not started |
