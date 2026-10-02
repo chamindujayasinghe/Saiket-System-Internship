@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ember Hill Coffee Co. — Small-Batch Roasted Coffee</title>
+  <meta name="description" content="Single-origin coffee beans, roasted to order in small batches. A demo e-commerce landing page." />
+
+  <!-- Apply the saved / system theme before paint to avoid a flash -->
+  <script>
+    (function () {
+      let theme = null;
+      try { theme = localStorage.getItem('ember-theme'); } catch (e) {}
+      if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS (Play CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bg: 'rgb(var(--bg) / <alpha-value>)',
+            surface: 'rgb(var(--surface) / <alpha-value>)',
+            ink: 'rgb(var(--ink) / <alpha-value>)',
+            muted: 'rgb(var(--muted) / <alpha-value>)',
+            line: 'rgb(var(--line) / <alpha-value>)',
+            accent: 'rgb(var(--accent) / <alpha-value>)',
+            espresso: '#22180F',
+            cream: '#F6F1E9',
+          },
+          fontFamily: {
+            display: ['Fraunces', 'Georgia', 'serif'],
+            sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    :root {
+      --bg: 246 241 233;       /* cream */
+      --surface: 255 253 248;
+      --ink: 34 24 15;         /* espresso */
+      --muted: 110 97 83;
+      --line: 228 218 203;
+      --accent: 178 72 36;     /* terracotta */
+    }
+    .dark {
+      --bg: 22 17 12;
+      --surface: 31 24 17;
+      --ink: 243 234 221;
+      --muted: 168 154 136;
+      --line: 51 41 31;
+      --accent: 224 117 72;
+    }
+    body { transition: background-color .3s ease, color .3s ease; }
+    .bag { transition: transform .4s cubic-bezier(.2,.8,.2,1); }
+    .product:hover .bag { transform: translateY(-6px) rotate(-2deg); }
+    @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.35); } 100% { transform: scale(1); } }
+    .pop { animation: pop .35s ease; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+
+<body class="bg-bg text-ink font-sans antialiased">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[70] focus:bg-accent focus:text-white focus:px-3 focus:py-2 focus:rounded">Skip to content</a>
+
+  <!-- ============ ANNOUNCEMENT BAR ============ -->
+  <div id="announcement" class="bg-espresso text-cream text-sm">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 py-2.5 flex items-center justify-center gap-4 relative">
+      <p class="text-center pr-8">Free shipping on orders over <strong>$50</strong>. Every bag roasted to order.</p>
+      <button id="close-announcement" class="absolute right-3 sm:right-6 p-1 opacity-70 hover:opacity-100" aria-label="Dismiss announcement">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header id="site-header" class="sticky top-0 z-40 bg-bg/90 backdrop-blur border-b border-transparent transition-colors">
+    <nav class="mx-auto max-w-7xl px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between" aria-label="Primary">
+      <a href="#" class="flex items-center gap-2.5">
+        <svg class="w-8 h-8 text-accent" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+          <path d="M16 3c4 5 9 8.5 9 15a9 9 0 1 1-18 0c0-4 2-6.5 4-8.5.5 3 2 4.5 3.5 5C13 10 14 6 16 3z"/>
+        </svg>
+        <span class="font-display text-xl md:text-2xl font-semibold tracking-tight">Ember Hill</span>
+      </a>
+
+      <ul class="hidden md:flex items-center gap-9 text-[15px]">
+        <li><a href="#shop" class="hover:text-accent transition-colors">Shop</a></li>
+        <li><a href="#story" class="hover:text-accent transition-colors">Our Story</a></li>
+        <li><a href="#reviews" class="hover:text-accent transition-colors">Reviews</a></li>
+        <li><a href="#newsletter" class="hover:text-accent transition-colors">Newsletter</a></li>
+      </ul>
+
+      <div class="flex items-center gap-1 sm:gap-2">
+        <!-- Theme toggle -->
+        <button id="theme-toggle" class="p-2.5 rounded-full hover:bg-ink/5 transition-colors" aria-label="Switch to dark mode">
+          <svg id="icon-moon" class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" stroke-linejoin="round"/></svg>
+          <svg id="icon-sun" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke-linecap="round"/></svg>
+        </button>
+
+        <!-- Cart button -->
+        <button id="cart-button" class="relative p-2.5 rounded-full hover:bg-ink/5 transition-colors" aria-label="Open cart, 0 items" aria-controls="cart-drawer" aria-expanded="false">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 7z" stroke-linejoin="round"/><path d="M9 7V6a3 3 0 0 1 6 0v1" stroke-linecap="round"/></svg>
+          <span id="cart-count" class="absolute -top-0.5 -right-0.5 min-w-[1.25rem] h-5 px-1 rounded-full bg-accent text-white text-[11px] font-bold flex items-center justify-center scale-0 transition-transform">0</span>
+        </button>
+
+        <!-- Mobile menu toggle -->
+        <button id="menu-toggle" class="md:hidden p-2.5 -mr-2 rounded-full hover:bg-ink/5" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path id="menu-icon" d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden hidden border-t border-line bg-bg">
+      <ul class="px-4 py-4 space-y-1 text-lg font-display">
+        <li><a href="#shop" class="mobile-link block py-2">Shop</a></li>
+        <li><a href="#story" class="mobile-link block py-2">Our Story</a></li>
+        <li><a href="#reviews" class="mobile-link block py-2">Reviews</a></li>
+        <li><a href="#newsletter" class="mobile-link block py-2">Newsletter</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="relative overflow-hidden">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 pt-12 pb-20 md:pt-20 md:pb-28 grid lg:grid-cols-2 gap-14 items-center">
+        <div>
+          <p class="inline-flex items-center gap-2 text-sm font-medium text-accent mb-6">
+            <span class="w-8 h-px bg-accent" aria-hidden="true"></span>
+            New harvest · Autumn 2026
+          </p>
+          <h1 class="font-display text-[clamp(2.75rem,6.5vw,5.25rem)] leading-[1.02] tracking-tight mb-6">
+            Coffee worth<br />waking up <em class="text-accent">for.</em>
+          </h1>
+          <p class="text-lg text-muted max-w-md leading-relaxed mb-10">
+            Single-origin beans from small farms, roasted in small batches the week you order and
+            shipped straight to your door.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a href="#shop" class="inline-flex items-center gap-2 bg-ink text-bg px-7 py-3.5 rounded-full font-medium hover:bg-accent hover:text-white transition-colors">
+              Shop the beans
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#story" class="inline-flex items-center px-7 py-3.5 rounded-full border border-ink/20 font-medium hover:border-ink transition-colors">
+              Our story
+            </a>
+          </div>
+
+          <dl class="mt-14 grid grid-cols-3 max-w-md divide-x divide-line">
+            <div class="pr-4">
+              <dt class="text-xs uppercase tracking-wider text-muted mb-1">Origins</dt>
+              <dd class="font-display text-3xl">8</dd>
+            </div>
+            <div class="px-4">
+              <dt class="text-xs uppercase tracking-wider text-muted mb-1">Roasted</dt>
+              <dd class="font-display text-3xl">Weekly</dd>
+            </div>
+            <div class="pl-4">
+              <dt class="text-xs uppercase tracking-wider text-muted mb-1">Batch</dt>
+              <dd class="font-display text-3xl">12 kg</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Hero visual: illustrated bags -->
+        <div class="relative h-[360px] sm:h-[460px]" aria-hidden="true">
+          <div class="absolute inset-x-6 bottom-0 top-10 rounded-t-full bg-accent/10 dark:bg-accent/15"></div>
+          <div class="absolute left-[8%] bottom-8 w-[38%] -rotate-6" id="hero-bag-1"></div>
+          <div class="absolute right-[8%] bottom-8 w-[38%] rotate-6" id="hero-bag-2"></div>
+          <div class="absolute left-1/2 -translate-x-1/2 bottom-4 w-[44%] z-10" id="hero-bag-3"></div>
+          <div class="absolute top-6 right-4 sm:right-10 z-20 bg-surface border border-line rounded-2xl px-4 py-3 shadow-sm rotate-3">
+            <p class="text-xs text-muted">Roasted on</p>
+            <p class="font-display text-lg" id="roast-date">—</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TRUST STRIP ============ -->
+    <section class="border-y border-line bg-surface">
+      <ul class="mx-auto max-w-7xl px-4 sm:px-6 py-8 grid sm:grid-cols-3 gap-6 text-sm">
+        <li class="flex items-center gap-4">
+          <span class="w-11 h-11 rounded-full bg-accent/10 text-accent flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z" stroke-linejoin="round"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>
+          </span>
+          <div><p class="font-medium">Free shipping over $50</p><p class="text-muted">Delivered in 2–4 days</p></div>
+        </li>
+        <li class="flex items-center gap-4">
+          <span class="w-11 h-11 rounded-full bg-accent/10 text-accent flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c4 5 9 8.5 9 15a9 9 0 1 1-18 0c0-4 2-6.5 4-8.5.5 3 2 4.5 3.5 5C13 10 14 6 16 3z"/></svg>
+          </span>
+          <div><p class="font-medium">Roasted to order</p><p class="text-muted">Never sits on a shelf</p></div>
+        </li>
+        <li class="flex items-center gap-4">
+          <span class="w-11 h-11 rounded-full bg-accent/10 text-accent flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.4-7-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 7 3.5C19 16.6 12 21 12 21z" stroke-linejoin="round"/></svg>
+          </span>
+          <div><p class="font-medium">Direct trade</p><p class="text-muted">Fair prices for farmers</p></div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ SHOP ============ -->
+    <section id="shop" class="scroll-mt-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 py-20 md:py-28">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-12">
+          <div>
+            <p class="text-sm font-medium text-accent mb-3">The collection</p>
+            <h2 class="font-display text-4xl md:text-5xl tracking-tight">Find your roast</h2>
+          </div>
+
+          <!-- Filter tabs -->
+          <div class="flex flex-wrap gap-2" role="group" aria-label="Filter by roast">
+            <button class="filter-btn px-5 py-2 rounded-full border text-sm font-medium transition-colors" data-filter="all" aria-pressed="true">All</button>
+            <button class="filter-btn px-5 py-2 rounded-full border text-sm font-medium transition-colors" data-filter="light" aria-pressed="false">Light</button>
+            <button class="filter-btn px-5 py-2 rounded-full border text-sm font-medium transition-colors" data-filter="medium" aria-pressed="false">Medium</button>
+            <button class="filter-btn px-5 py-2 rounded-full border text-sm font-medium transition-colors" data-filter="dark" aria-pressed="false">Dark</button>
+          </div>
+        </div>
+
+        <p id="product-count" class="sr-only" aria-live="polite"></p>
+        <ul id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12"></ul>
+      </div>
+    </section>
+
+    <!-- ============ STORY ============ -->
+    <section id="story" class="scroll-mt-20 bg-espresso text-cream">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 py-20 md:py-28 grid lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-5">
+          <p class="text-sm font-medium text-[#E07548] mb-3">Our story</p>
+          <h2 class="font-display text-4xl md:text-5xl tracking-tight leading-tight">
+            From the farm to your cup in <em>three steps.</em>
+          </h2>
+        </div>
+        <ol class="lg:col-span-7 grid sm:grid-cols-3 gap-8">
+          <li class="border-t border-cream/20 pt-6">
+            <span class="font-display text-5xl text-[#E07548]">01</span>
+            <h3 class="font-display text-xl mt-4 mb-2">We source</h3>
+            <p class="text-cream/70 text-[15px] leading-relaxed">We buy directly from small farms and cooperatives and pay well above market price.</p>
+          </li>
+          <li class="border-t border-cream/20 pt-6">
+            <span class="font-display text-5xl text-[#E07548]">02</span>
+            <h3 class="font-display text-xl mt-4 mb-2">We roast</h3>
+            <p class="text-cream/70 text-[15px] leading-relaxed">Every bean is roasted in 12 kg batches, tuned to bring out its natural flavour.</p>
+          </li>
+          <li class="border-t border-cream/20 pt-6">
+            <span class="font-display text-5xl text-[#E07548]">03</span>
+            <h3 class="font-display text-xl mt-4 mb-2">We ship</h3>
+            <p class="text-cream/70 text-[15px] leading-relaxed">Bags are sealed with a one-way valve and shipped within 48 hours of roasting.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ REVIEWS ============ -->
+    <section id="reviews" class="scroll-mt-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 py-20 md:py-28">
+        <div class="text-center mb-14">
+          <p class="text-sm font-medium text-accent mb-3">Reviews</p>
+          <h2 class="font-display text-4xl md:text-5xl tracking-tight">Loved by early risers</h2>
+          <p class="text-muted text-sm mt-3">Sample reviews for this demo page.</p>
+        </div>
+
+        <ul class="grid md:grid-cols-3 gap-6">
+          <li class="bg-surface border border-line rounded-3xl p-8 flex flex-col">
+            <p class="text-accent tracking-widest mb-5" aria-label="5 out of 5 stars">★★★★★</p>
+            <blockquote class="font-display text-xl leading-snug mb-8">"The Yirgacheffe tastes like jasmine tea and lemon. I didn't know coffee could do that."</blockquote>
+            <p class="mt-auto text-sm"><span class="font-medium">Amaya P.</span> <span class="text-muted">· Light roast fan</span></p>
+          </li>
+          <li class="bg-surface border border-line rounded-3xl p-8 flex flex-col">
+            <p class="text-accent tracking-widest mb-5" aria-label="5 out of 5 stars">★★★★★</p>
+            <blockquote class="font-display text-xl leading-snug mb-8">"House Espresso is now the only bag in my kitchen. Rich, chocolatey, and great with milk."</blockquote>
+            <p class="mt-auto text-sm"><span class="font-medium">Daniel R.</span> <span class="text-muted">· Home barista</span></p>
+          </li>
+          <li class="bg-surface border border-line rounded-3xl p-8 flex flex-col">
+            <p class="text-accent tracking-widest mb-5" aria-label="4 out of 5 stars">★★★★<span class="opacity-30">★</span></p>
+            <blockquote class="font-display text-xl leading-snug mb-8">"Arrived three days after roasting and smelled amazing. Fast shipping and lovely packaging."</blockquote>
+            <p class="mt-auto text-sm"><span class="font-medium">Nimal S.</span> <span class="text-muted">· Monthly subscriber</span></p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ NEWSLETTER ============ -->
+    <section id="newsletter" class="scroll-mt-20 px-4 sm:px-6 pb-20 md:pb-28">
+      <div class="mx-auto max-w-7xl rounded-[2rem] bg-accent text-white px-6 py-14 md:px-16 md:py-20 grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <h2 class="font-display text-4xl md:text-5xl tracking-tight leading-tight mb-4">Get 10% off your first bag</h2>
+          <p class="text-white/80 max-w-md">Join the newsletter for brewing guides, new harvest drops and subscriber-only offers.</p>
+        </div>
+
+        <form id="newsletter-form" novalidate>
+          <label for="newsletter-email" class="sr-only">Email address</label>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <input id="newsletter-email" type="email" autocomplete="email" placeholder="you@example.com"
+              class="flex-1 rounded-full bg-white text-espresso placeholder:text-espresso/40 px-6 py-4 border-2 border-transparent focus:outline-none focus:border-espresso"
+              aria-describedby="newsletter-msg" />
+            <button type="submit" class="rounded-full bg-espresso text-cream px-8 py-4 font-medium hover:bg-black transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+              Subscribe
+            </button>
+          </div>
+          <p id="newsletter-msg" class="mt-3 text-sm min-h-[1.25rem]" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="border-t border-line">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-10 text-sm">
+      <div class="lg:col-span-2">
+        <p class="font-display text-2xl font-semibold mb-3">Ember Hill</p>
+        <p class="text-muted max-w-xs">Small-batch coffee, roasted to order.</p>
+      </div>
+      <div>
+        <p class="font-medium mb-3">Shop</p>
+        <ul class="space-y-2 text-muted">
+          <li><a href="#shop" class="hover:text-accent">All coffee</a></li>
+          <li><a href="#shop" class="hover:text-accent">Light roasts</a></li>
+          <li><a href="#shop" class="hover:text-accent">Dark roasts</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-medium mb-3">Company</p>
+        <ul class="space-y-2 text-muted">
+          <li><a href="#story" class="hover:text-accent">Our story</a></li>
+          <li><a href="#reviews" class="hover:text-accent">Reviews</a></li>
+          <li><a href="#newsletter" class="hover:text-accent">Newsletter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-line">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 py-6 flex flex-col sm:flex-row justify-between gap-2 text-xs text-muted">
+        <p>© <span id="year"></span> Ember Hill Coffee Co. is a fictional brand made for a demo.</p>
+        <p>Built by <a href="https://github.com/chamindujayasinghe" target="_blank" rel="noopener" class="underline hover:text-accent">Chamindu Jayasinghe</a> · SaiKet Systems Internship · Task 02</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ CART DRAWER ============ -->
+  <div id="cart-overlay" class="fixed inset-0 z-50 bg-black/40 opacity-0 pointer-events-none transition-opacity"></div>
+  <aside id="cart-drawer" class="fixed top-0 right-0 z-[60] h-full w-full max-w-md bg-surface shadow-2xl translate-x-full transition-transform duration-300 flex flex-col" role="dialog" aria-modal="true" aria-labelledby="cart-title" aria-hidden="true">
+    <div class="flex items-center justify-between px-6 h-16 md:h-20 border-b border-line">
+      <h2 id="cart-title" class="font-display text-2xl">Your cart</h2>
+      <button id="cart-close" class="p-2 -mr-2 rounded-full hover:bg-ink/5" aria-label="Close cart">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <!-- Free shipping progress -->
+    <div class="px-6 py-4 border-b border-line">
+      <p id="shipping-msg" class="text-sm mb-2"></p>
+      <div class="h-1.5 rounded-full bg-line overflow-hidden">
+        <div id="shipping-bar" class="h-full bg-accent rounded-full transition-all duration-500" style="width:0%"></div>
+      </div>
+    </div>
+
+    <ul id="cart-items" class="flex-1 overflow-y-auto px-6 divide-y divide-line"></ul>
+
+    <div id="cart-empty" class="flex-1 flex flex-col items-center justify-center text-center px-6 hidden">
+      <p class="font-display text-2xl mb-2">Your cart is empty</p>
+      <p class="text-muted text-sm mb-6">Find a roast you'll love.</p>
+      <a href="#shop" id="cart-browse" class="rounded-full bg-ink text-bg px-6 py-3 text-sm font-medium hover:bg-accent hover:text-white transition-colors">Browse coffee</a>
+    </div>
+
+    <div id="cart-footer" class="border-t border-line px-6 py-5 space-y-4">
+      <div class="flex justify-between text-lg">
+        <span>Subtotal</span>
+        <span id="cart-subtotal" class="font-medium">$0.00</span>
+      </div>
+      <button id="checkout-btn" class="w-full rounded-full bg-ink text-bg py-4 font-medium hover:bg-accent hover:text-white transition-colors">Checkout</button>
+      <p class="text-xs text-muted text-center">Demo store: no payment is taken.</p>
+    </div>
+  </aside>
+
+  <!-- ============ TOAST ============ -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[80] bg-espresso text-cream dark:bg-cream dark:text-espresso px-5 py-3 rounded-full text-sm shadow-lg opacity-0 translate-y-4 pointer-events-none transition-all duration-300" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
