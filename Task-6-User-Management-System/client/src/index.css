@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+
+  --color-page: #F7F7F5;
+  --color-panel: #FFFFFF;
+  --color-ink: #18181B;
+  --color-muted: #71717A;
+  --color-line: #E7E5E4;
+  --color-brand: #0F766E;
+  --color-brand-dark: #115E59;
+  --color-brand-soft: #E6F4F1;
+  --color-danger: #DC2626;
+}
+
+body {
+  background-color: var(--color-page);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+dialog::backdrop {
+  background: rgb(24 24 27 / 0.45);
+  backdrop-filter: blur(2px);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.3s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up { animation: none; }
+}

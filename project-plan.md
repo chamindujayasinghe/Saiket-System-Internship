@@ -229,10 +229,10 @@ CREATE TABLE users (
 |---|---|---|
 | M1 — Task 1 complete | Oct 4 | ✅ Done (Oct 2) |
 | M2 — Task 2 complete | Oct 7 | ✅ Done (Oct 2) |
-| M3 — Task 3 complete | Oct 14 | ⬜ Not started |
-| M4 — Task 4 complete | Oct 21 | ⬜ Not started |
-| M5 — Task 5 complete | Oct 28 | ⬜ Not started |
-| M6 — Task 6 complete | Nov 4 | ⬜ Not started |
+| M3 — Task 3 complete | Oct 14 | ✅ Done (Oct 2) |
+| M4 — Task 4 complete | Oct 21 | ✅ Done (Oct 2) |
+| M5 — Task 5 complete | Oct 28 | ✅ Done (Oct 2) |
+| M6 — Task 6 complete | Nov 4 | ✅ Done (Oct 2) |
 | M7 — Video posted on LinkedIn | Nov 9 | ⬜ Not started |
 | M8 — Submission form completed | When released | ⬜ Not started |
 

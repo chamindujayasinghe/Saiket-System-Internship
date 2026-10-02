@@ -1,0 +1,29 @@
+{
+  "name": "task-5-database-integration",
+  "version": "1.0.0",
+  "description": "User REST API connected to a MySQL database (SaiKet Systems Internship, Task 5)",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "db:init": "node scripts/initDb.js",
+    "db:reset": "node scripts/initDb.js --reset",
+    "test": "node --test"
+  },
+  "keywords": [
+    "express",
+    "rest-api",
+    "crud",
+    "mysql",
+    "sql"
+  ],
+  "author": "Chamindu Jayasinghe",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.5",
+    "express": "^5.2.1",
+    "mysql2": "^3.24.5"
+  }
+}

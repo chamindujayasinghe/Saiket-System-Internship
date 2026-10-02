@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-sans: "Manrope", system-ui, sans-serif;
+
+  --color-canvas: #F3F1EC;
+  --color-card: #FFFFFF;
+  --color-ink: #1B1B1F;
+  --color-muted: #6B6A70;
+  --color-line: #E4E1DA;
+  --color-brand: #2F5BEA;
+  --color-brand-soft: #E6ECFD;
+  --color-danger: #D1453B;
+
+  --color-high: #D1453B;
+  --color-medium: #D98A1F;
+  --color-low: #3C9A5F;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.25s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-in { animation: none; }
+}

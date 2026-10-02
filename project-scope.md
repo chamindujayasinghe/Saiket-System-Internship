@@ -37,7 +37,7 @@ Each task is a separate deliverable. The brief says: *"make a separate file of e
 | Database | MySQL **or** PostgreSQL | Tasks 5, 6 |
 | API Testing | Postman | Tasks 4, 5, 6 |
 
-> **Decided:** Tailwind CSS and React.js. **Still open:** MySQL or PostgreSQL. Pick one before Task 5 and use it through Task 6.
+> **Decided:** Tailwind CSS, React.js and MySQL.
 
 ---
 
